@@ -1,0 +1,115 @@
+<mxfile host="app.diagrams.net" agent="ChatGPT">
+  <diagram id="smartedit-architecture" name="SmartEdit System Architecture">
+    <mxGraphModel dx="1966" dy="1090" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p2" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#000000;fillColor=#FFFFFF;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;fontFamily=Arial;" value="2. PROJECT CREATION / LOAD&#xa;&lt;font style=&quot;font-size:13px;font-weight:normal&quot;&gt;Create new project or load existing project&lt;/font&gt;" vertex="1">
+          <mxGeometry height="65" width="420" x="390" y="405" as="geometry" />
+        </mxCell>
+        <mxCell id="UGXyv2iWh8IzJAbDOBxR-5" edge="1" parent="1" source="p3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;strokeWidth=2;" target="p5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#000000;fillColor=#FFFFFF;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;fontFamily=Arial;" value="3. IMPORT VIDEO CLIPS&#xa;&lt;font style=&quot;font-size:13px;font-weight:normal&quot;&gt;Import multiple clips from cameras / devices&lt;/font&gt;" vertex="1">
+          <mxGeometry height="65" width="420" x="390" y="495" as="geometry" />
+        </mxCell>
+        <mxCell id="UGXyv2iWh8IzJAbDOBxR-7" edge="1" parent="1" source="p4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" target="p6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#000000;fillColor=#FFFFFF;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;fontFamily=Arial;" value="5. AI ANALYSIS &amp;amp; FEATURE EXTRACTION&lt;br&gt;&lt;font style=&quot;font-size:13px;font-weight:normal&quot;&gt;Shot/scene detection, object &amp;amp; face detection,&lt;br&gt;motion analysis, audio analysis, embeddings&lt;/font&gt;" vertex="1">
+          <mxGeometry height="78" width="420" x="390" y="685" as="geometry" />
+        </mxCell>
+        <mxCell id="UGXyv2iWh8IzJAbDOBxR-6" edge="1" parent="1" source="p5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" target="p4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#000000;fillColor=#FFFFFF;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;fontFamily=Arial;" value="4.SLM UNDERSTANDING&lt;br&gt;&lt;font style=&quot;font-size:13px;font-weight:normal&quot;&gt;Understand user prompt, context&lt;br&gt;and preferences&lt;/font&gt;" vertex="1">
+          <mxGeometry height="75" width="420" x="390" y="583" as="geometry" />
+        </mxCell>
+        <mxCell id="p6" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#000000;fillColor=#FFFFFF;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;fontFamily=Arial;" value="6. EDITING STYLE &amp; TIMELINE PLANNING&#xa;&lt;font style=&quot;font-size:13px;font-weight:normal&quot;&gt;Analyze style templates &amp;amp; content&#xa;Plan initial timeline and edits&lt;/font&gt;" vertex="1">
+          <mxGeometry height="75" width="420" x="390" y="788" as="geometry" />
+        </mxCell>
+        <mxCell id="p7" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#000000;fillColor=#FFFFFF;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;fontFamily=Arial;" value="7. AI ROUGH CUT GENERATION&#xa;&lt;font style=&quot;font-size:13px;font-weight:normal&quot;&gt;Select best clips, apply cuts, transitions,&#xa;remove silences, mark shaky parts&lt;/font&gt;" vertex="1">
+          <mxGeometry height="75" width="420" x="390" y="888" as="geometry" />
+        </mxCell>
+        <mxCell id="p8" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#000000;fillColor=#FFFFFF;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;fontFamily=Arial;" value="8. PRESENT TO USER (REVIEW)&#xa;&lt;font style=&quot;font-size:13px;font-weight:normal&quot;&gt;Show AI-generated timeline and suggestions&#xa;in the editor&lt;/font&gt;" vertex="1">
+          <mxGeometry height="78" width="420" x="390" y="988" as="geometry" />
+        </mxCell>
+        <mxCell id="decision" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#000000;fillColor=#FFF2CC;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;fontFamily=Arial;" value="User Accepts&#xa;Suggestions?" vertex="1">
+          <mxGeometry height="90" width="190" x="505" y="1095" as="geometry" />
+        </mxCell>
+        <mxCell id="manual" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#000000;fillColor=#FFFFFF;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;fontFamily=Arial;" value="9A. USER MANUAL EDITING&#xa;&lt;font style=&quot;font-size:13px;font-weight:normal&quot;&gt;Trim, rearrange, adjust transitions,&#xa;camera selection, effects, etc.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="340" x="95" y="1105" as="geometry" />
+        </mxCell>
+        <mxCell id="finalize" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#000000;fillColor=#FFFFFF;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;fontFamily=Arial;" value="9B. FINALIZE EDIT&#xa;&lt;font style=&quot;font-size:13px;font-weight:normal&quot;&gt;Confirm edits and lock timeline&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="300" x="770" y="1100" as="geometry" />
+        </mxCell>
+        <mxCell id="render" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#000000;fillColor=#FFFFFF;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;fontFamily=Arial;" value="10. RENDER / EXPORT&#xa;&lt;font style=&quot;font-size:13px;font-weight:normal&quot;&gt;Render video using FFmpeg / MoviePy&#xa;in selected format &amp;amp; quality&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="300" x="770" y="1220" as="geometry" />
+        </mxCell>
+        <mxCell id="output" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#000000;fillColor=#E2F0D9;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;fontFamily=Arial;" value="11. OUTPUT DELIVERED&#xa;&lt;font style=&quot;font-size:13px;font-weight:normal&quot;&gt;Edited video ready for use&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="300" x="770" y="1335" as="geometry" />
+        </mxCell>
+        <mxCell id="media" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#000000;fillColor=#FFFFFF;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;fontFamily=Arial;" value="MEDIA STORAGE&#xa;&lt;font style=&quot;font-size:13px;font-weight:normal&quot;&gt;Raw clips, proxies,&#xa;thumbnails, exports&lt;/font&gt;" vertex="1">
+          <mxGeometry height="105" width="250" x="80" y="1490" as="geometry" />
+        </mxCell>
+        <mxCell id="db" parent="1" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=2;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;fontFamily=Arial;" value="DATA STORE (DATABASE)&#xa;&lt;font style=&quot;font-size:13px;font-weight:normal&quot;&gt;Users, Projects, Media Files, Metadata,&#xa;Analysis Results, Timelines, Preferences,&#xa;Logs, Export History&lt;/font&gt;" vertex="1">
+          <mxGeometry height="145" width="400" x="420" y="1470" as="geometry" />
+        </mxCell>
+        <mxCell id="model" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#000000;fillColor=#FFFFFF;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;fontFamily=Arial;" value="MODEL STORAGE&#xa;&lt;font style=&quot;font-size:13px;font-weight:normal&quot;&gt;AI/ML models, style&#xa;templates, embeddings&lt;/font&gt;" vertex="1">
+          <mxGeometry height="105" width="250" x="910" y="1490" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="p2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;strokeColor=#000000;strokeWidth=2;" target="p3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="p6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;strokeColor=#000000;strokeWidth=2;" target="p7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="p7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;strokeColor=#000000;strokeWidth=2;" target="p8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="p8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;strokeColor=#000000;strokeWidth=2;" target="decision">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="decision" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;strokeColor=#000000;strokeWidth=2;fontSize=13;fontStyle=1;" target="manual" value="No">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="decision" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;strokeColor=#000000;strokeWidth=2;fontSize=13;fontStyle=1;" target="finalize" value="Yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="manual" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;strokeColor=#000000;strokeWidth=2;" target="p8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="finalize" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;strokeColor=#000000;strokeWidth=2;" target="render">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="render" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;strokeColor=#000000;strokeWidth=2;" target="output">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e18" edge="1" parent="1" source="output" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;strokeColor=#000000;strokeWidth=2;" target="manual">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e19" edge="1" parent="1" source="output" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;strokeColor=#000000;strokeWidth=2;" target="media">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e20" edge="1" parent="1" source="output" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;strokeColor=#000000;strokeWidth=2;" target="db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e21" edge="1" parent="1" source="output" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;strokeColor=#000000;strokeWidth=2;" target="model">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e22" edge="1" parent="1" source="media" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;startArrow=block;endArrow=block;strokeColor=#000000;strokeWidth=2;" target="db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e23" edge="1" parent="1" source="db" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;startArrow=block;endArrow=block;strokeColor=#000000;strokeWidth=2;" target="model">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UGXyv2iWh8IzJAbDOBxR-10" edge="1" parent="1" source="UGXyv2iWh8IzJAbDOBxR-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" target="p2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UGXyv2iWh8IzJAbDOBxR-9" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#000000;fillColor=#FFFFFF;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;fontFamily=Arial;" value="USER&lt;br&gt;(Editor)" vertex="1">
+          <mxGeometry height="65" width="420" x="390" y="310" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

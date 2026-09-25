@@ -1,0 +1,225 @@
+\chapter{SYSTEM ANALYSIS}
+
+\par
+\hspace{0.5cm}
+The practice of performing systems analysis in a technical development scenario focuses on identifying the most effective way to solve a relevant problem—such as detecting vulnerabilities and software quality bottlenecks in source code. Before initiating the development of such a system, project stakeholders, including researchers or student developers, formulate a project proposal and present it to the concerned academic or institutional authority for review and approval.
+
+\par A structured system inquiry in this context involves evaluating the current challenges developers face in identifying and securing their code, with the goal of enhancing these processes using advanced tools like language parsers and large language models (LLMs). System analysis is used to break down the problem, identify key objectives—such as code transformation, analysis, and vulnerability classification—and ensure all modules work cohesively to deliver accurate and helpful insights to the developer or learner using the system.
+
+\section{Requirements Analysis}
+\hspace{0.5cm}
+Requirement analysis is a crucial phase in the software development life cycle that focuses on identifying, documenting, and analyzing the functional and technical needs of a system before design and implementation. For the proposed RustAuditAI project, which aims to perform intra-procedural software quality intelligence, vulnerability detection, and explainable patch generation within individual Rust functions, this phase plays a vital role in defining the system's scope and expected behavior.
+
+The primary requirement of the system is to support source code blocks written in the Rust programming language. Individual functions must be parsed into a structured abstract form using compiler-level front-ends, specifically the syn crate ecosystem. This compiler-level syntax extraction enables language-idiom validation and forms the foundation for consistent, intra-procedural data-flow and lifetime tracking without requiring full workspace compilation binaries.
+
+Another key requirement is the integration of Large Language Models for semantic code reasoning and software quality analysis. The system must be capable of extracting localized graph properties from the Abstract Syntax Tree (AST), Control Flow Graph (CFG), and Function-Level Ownership Graph (FLOG), and providing them as structured context inputs to LLMs for identifying safety defects, allocation bottlenecks, and logical vulnerabilities. In addition to detection, the system is required to generate natural-language explanations using Explainable AI (XAI) techniques, ensuring that developers understand the root cause, execution flow, and structural impact of each detected quality degradation pattern.
+
+The system must also support automatic patch generation, where secure and optimized code fixes are produced for identified function flaws. These fixes should be presented in a clear old-versus-new diff format to allow developers to review, apply, or refine the suggested patches. Furthermore, visualization support is required to generate interactive, self-contained functional Control Flow Graphs that visually illustrate the propagation of variables, resource allocations, and the specific structural branches leading to code degradation.
+
+In addition to functional requirements, several non-functional requirements must be satisfied. The system should provide highly efficient intra-procedural analysis with rapid execution times suitable for active development loops. It must maintain strict determinism in its mathematical scoring engine and be extensible enough to incorporate additional performance or safety criteria in the future. Usability is also a critical requirement, with metrics and reports designed to be clear, educational, and developer-friendly.
+
+This requirement analysis ensures that the RustAuditAI system is aligned with its intended objectives and provides a reliable foundation for subsequent system design, implementation, and evaluation.
+
+\section{Existing System}
+\hspace{0.5cm}
+Existing systems and tools for Rust code verification and vulnerability detection are mainly designed to identify known insecure coding patterns or isolated syntax deviations. Most of these systems rely on traditional static analysis techniques, strict compiler rule sets, or independent linters. While such approaches are effective for enforcing foundational language rules, they often struggle to capture multi-dimensional structural correlations, subtle performance bottlenecks, and logic-level design flaws inside subroutines. Furthermore, many existing tools operate in complete isolation and do not provide a unified framework for measuring overall software quality from an architectural perspective.
+
+Another major limitation of existing systems is their lack of contextual explainability and automated remediation support. Most tools focus only on detection and produce plain-text warnings without clearly explaining the broader architectural cause, execution overhead, or optimization path. As a result, developers must manually interpret the results and implement fixes, which increases debugging effort and code complexity. Some of the widely known systems include:
+\begin{itemize}
+    \item \textbf{Clippy:} Clippy is the default, official collection of lints for the Rust programming language. It operates by scanning source code files for the presence of known unidiomatic patterns, styling deviations, and minor logical errors. It is lightweight and fast, making it highly suitable for enforcement during standard compilation routines. However, Clippy relies heavily on syntax pattern matching over the compiler's Abstract Syntax Tree, which limits its ability to dynamically correlate disparate software attributes. This often results in isolated text warnings that lack explanatory depth regarding how a specific variable change cascades to affect performance and maintainability metrics simultaneously. Additionally, Clippy is restricted strictly to syntactic rule validation and does not offer context-aware natural language explanations or automated patch comparison dashboards.
+    \item \textbf{cargo-audit:} Developed by the Rust Secure Code Working Group, cargo-audit focuses entirely on supply-chain security and dependency vulnerability scanning. It operates by evaluating a project's dependency manifest (Cargo.lock) against the official Rust Advisory Database to detect crates with publicly disclosed vulnerabilities (CVEs). While essential for dependency management, cargo-audit is blind to the internal code logic written by the developer. It cannot inspect function bodies, analyze variable lifetimes, or track inefficient resource allocation densities within subroutines. Moreover, cargo-audit primarily functions as a binary checker (reporting the presence or absence of vulnerable dependencies) and provides no utility for custom code refactoring, structural visualization, or automated code optimization.
+    \item \textbf{Joern:} Joern is an advanced open-source static analysis engine that compiles source code into a Code Property Graph (CPG), blending abstract syntax trees, control-flow graphs, and data-flow graphs into a unified graph structure. This graph abstraction allows for deep semantic queries over program dependencies. However, Joern's accuracy relies entirely on manually formulated queries written in a specialized domain-specific language, creating a steep learning curve and restricting its utility to expert security auditors. Furthermore, Joern's standard graph schema is optimized for C/C++ pointer behaviors and entirely lacks dedicated node types to model Rust’s unique compile-time ownership semantics, lifetime variables, and borrow checking restrictions. It also fails to integrate large language models for explainable reasoning or interactive patch generation.
+\end{itemize}
+
+\section{Limitations of Existing System}
+\hspace{0.5cm}
+Though there is access to documentation technology, the existing systems have the following drawbacks:
+
+\begin{itemize}
+\item \textbf{Dependence on Isolated Syntactic Signatures:} Most existing Rust analysis tools rely on rigid, syntax-based signature matching to flag unidiomatic code blocks. These signatures check for precise token patterns and fail to reason about the underlying semantic intent of the subroutine. Consequently, such systems struggle to identify custom logical inefficiencies or context-dependent resource bottlenecks that do not match a pre-configured linter rule.
+
+\item \textbf{Fragmented and Compartmentalized Outputs:} Current tools operate as completely independent utilities, forcing developers to manage separate workflows for code styling, security checking, and profiling. This fragmentation prevents the cross-layer correlation of data; for instance, an entry-level developer cannot see how an over-reliance on deep memory copies (.clone()) to bypass a compiler warning directly degrades performance while simultaneously complicating the function’s long-term maintainability.
+
+\item \textbf{Lack of Standardized Software Quality Metrics:} The existing ecosystem produces discrete lists of diagnostic warnings and errors rather than providing a unified evaluation of overall code health. The absence of a standardized, multi-dimensional metric specific to Rust makes it difficult for project managers and developers to easily measure, track, or prioritize structural improvements over the lifecycle of a subroutine.
+
+\item \textbf{Absence of Explainable Context and Educational Feedback:} Legacy tools generate brief error messages or static diagnostic links that state what code line is triggering an alert, but omit a comprehensive explanation of why it degrades software quality. This missing reasoning path slows down verification and triage, offering very little educational value to developers who are trying to learn how to write more idiomatic Rust code.
+
+\item \textbf{Lack of Automated and Interactive Remediation Support:} Current tools stop at alerting the developer to a potential violation and offer no active assistance in correcting it. The responsibility of researching, writing, and validating an alternative implementation remains entirely manual. This manual remediation process is time-consuming and error-prone, highlighting the clear need for systems that synthesize, display, and apply validated fixes automatically under developer control
+\end{itemize}
+
+\section{Proposed System}
+\hspace{0.5cm}
+The proposed system, RustAuditAI, is designed to provide a comprehensive, intra-procedural software quality intelligence framework by integrating compiler-level graph abstractions with the advanced reasoning and context-aware capabilities of Large Language Models (LLMs). By combining deterministic program structures with language-tuned reasoning layers, the system achieves highly precise, context-aware, and multi-dimensional quality assessment bounded strictly within individual Rust functions. Unlike conventional linters or rule-based tools that rely on isolated syntax patterns, this system constructs an internal, multi-layered Code Property Graph tailored explicitly for Rust’s unique execution semantics, exposing variable states, localized branching structures, and micro-allocation operations in a unified format.
+
+The system translates localized function blocks into structured semantic definitions, creating functional Abstract Syntax Trees (ASTs), localized Control Flow Graphs (CFGs), and a dedicated Function-Level Ownership Graph (FLOG) that explicitly maps variable lifetimes, borrows, and ownership re-bindings. These representations serve as the structured input data for an LLM specialized in code intelligence, enabling the framework to evaluate complex code behaviors that traditional tools miss. The proposed architecture consists of the following core modules:
+\begin{itemize}
+    \item \textbf{Syntax Parsing \& Graph Generation Module:} This module accepts target Rust function code text and utilizes the compiler frontend syn crate to extract an abstract syntax tree. The module maps localized code expressions, conditional paths, and identifier references into an interconnected graph layer. By standardizing raw text into an active graph structure, it builds the explicit functional blueprint needed for multi-vector inspection.
+    \item \textbf{The FLOG Engine Module:} Once the baseline syntax structures are built, this specialized engine generates the Function-Level Ownership Graph. It defines nodes for every localized variable allocation and reference type, connecting them with explicit semantic edges that track lifetime bounds, move variables, and borrow mutations. This maps Rust's precise compiler rules directly into a mathematical graph layout.
+    \item \textbf{Multi-Dimensional Metric Computation Engine:} This component simultaneously navigates the generated graphs across four distinct quality vectors: Safety (tracking unsafe blocks and borrow mechanics), Performance (measuring allocation and clone density), Maintainability (calculating McCabe's Cyclomatic Complexity), and Security (identifying hazardous API traits). It applies formal software engineering formulas to produce normalized scores for each vector.
+    \item \textbf{The RQI Synthesis Module:} This engine aggregates the independent criteria scores using a weighted valuation matrix to compute the unified Rust Quality Index (RQI) on a scale from 0 to 100. It utilizes a dynamic penalty matrix where a critical safety violation or illegal alias automatically triggers non-linear deductions that lower adjacent quality vectors, providing a true mathematical reflection of localized code health.
+    \item \textbf{Explainable AI (XAI) \& Patch Synthesis Module:} Upon identifying code flaws, this module feeds the structured graph anomalies into the LLM interface, bounding its reasoning strictly within the deterministic facts of our graph. The module generates targeted patch options in an old-versus-new diff format alongside clear natural language reasoning. It explains the exact cause of code degradation, outlines the refactoring strategy, and quantifies the expected performance improvements to guide the developer toward optimal programming practices.
+\end{itemize}
+
+\section{Advantages of Proposed System}
+\hspace{0.5cm}
+The proposed software quality intelligence framework offers several key advantages that enhance the static analysis process and provide significant value to systems developers and educational institutions alike. By combining specialized ownership graphs with bounded LLM reasoning layers, the system ensures highly precise, unified, and actionable code quality evaluations.
+
+\begin{itemize}
+\item Unified Multi-Dimensional Evaluation: Instead of forcing developers to jump between fragmented linter and security binaries, the system evaluates code health across four critical engineering vectors simultaneously, mapping the results onto a singular dashboard.
+\item Rust-Specific Ownership Mapping: The inclusion of a dedicated Function-Level Ownership Graph (FLOG) bridges a massive gap in academic literature by providing an explicit graph structure to track variable moves, lifetimes, and borrow distributions inside function scopes.
+\item Mathematical and Deterministic Scoring: The creation of the Rust Quality Index (RQI) provides a standardized, objective indicator (0–100) grounded in established formulas like Cyclomatic Complexity, allowing team leads to easily track code quality evolution.
+\item Explainable, Context-Aware AI Remediation: By constraining the LLM within the deterministic facts of the semantic graphs, the system completely prevents AI hallucinations, producing high-fidelity, educational explanations that detail the precise root causes of code degradation.
+\item Interactive, User-Controlled Patching: The framework displays proposed alternative code snippets in a visual side-by-side diff layout, ensuring that all modifications remain fully under developer control and preventing unauthorized codebase revisions.
+\item Highly Optimized Performance Loop: Because the framework is strictly scoped to intra-procedural analysis (evaluating a single function at a time), it circumvents the immense processing bottlenecks of cross-workspace points-to analysis, delivering rapid feedback suitable for agile development workflows.
+\end{itemize}
+
+\section{Functional Requirements}
+\hspace{0.5cm}
+The proposed system is designed to perform intra-procedural software quality analysis, vulnerability detection, and explainable patch generation within individual Rust functions by leveraging advanced Abstract Syntax Trees (ASTs), localized Control Flow Graphs (CFGs), Function-Level Ownership Graphs (FLOGs), and Large Language Models (LLMs). The functional requirements outline all expected behaviors, user interactions, and internal system capabilities in detail. 
+
+\subsection{Source Code Input and Upload}
+\hspace{0.5cm}
+The system shall allow users to input or upload isolated Rust source code blocks or function snippets through a dedicated interface. Target files can be uploaded or pasted directly as individual .rs files or function code segments. The system shall validate uploaded data to ensure it contains syntactically valid Rust structural declarations before initiating subsequent compilation checks. The system shall provide immediate, descriptive error messages for unsupported file formats, empty payloads, or major syntax compilation failures. The system shall not accept files with unsupported extensions or text that does not resolve into a standard language function block.
+
+\subsection{Language Identification and Preprocessing}
+\hspace{0.5cm}
+Upon submission, the system shall automatically detect the language parameters and map the input text directly to the native Rust analysis pipeline.The system shall isolate the structural bounds of the specific subroutine or function scope, filtering out external module variables or global package definitions to enforce strict intra-procedural analysis boundaries.  Based on the detected function format, the system shall prepare the code token stream for direct conversion into an intermediate graph abstraction layer using compiler-level parsing crates.
+
+\subsection{Graph Abstraction and Representation Generation}
+\hspace{0.5cm}
+The system shall successfu
+lly generate a multi-layered Code Property Graph abstraction from the function source code using the compiler frontend syn crate backend. The generated graph representation must:
+\begin{itemize}
+    \item Extract a functional Abstract Syntax Tree (AST) mapping localized syntax declarations and statement properties.
+    \item Construct a localized Control Flow Graph (CFG) mapping basic block nodes and conditional execution pathways.
+    \item Build a domain-specific Function-Level Ownership Graph (FLOG) that explicitly models variable lifetimes, references, borrows, and move operations. 
+\end{itemize} 
+The system shall verify successful graph construction and report errors if compilation errors or structural anomalies break graph creation boundaries.The system shall not proceed with subsequent LLM analysis routines if initial graph abstraction generation fails.
+
+\subsection{Vulnerability and Quality Vector Detection using LLM}
+\hspace{0.5cm}
+The system shall parse the constructed semantic graphs to extract localized graph contexts and variable interaction summaries representing internal function behaviors. The system shall submit these graph properties as structured context inputs into the LLM interface to perform semantic reasoning across multiple evaluation layers. The LLM reasoning engine shall identify:
+\begin{itemize}
+    \item Unsafe and memory-safety anomalies, including unvalidated pointer arithmetic, unchecked unsafe scopes, or invalid reference lifecycles.
+    \item Performance and resource efficiency defects, including excessive or redundant .clone() operations, unnecessary heap allocations, or inefficient iterator tracking loops.
+    \item Maintainability flaws, including overly complex conditional loops, high line-count expressions, or long nested branch layouts.
+    \item Defensive security bugs, including data validation flaws or reliance on deprecated or hazardous API traits. 
+\end{itemize} 
+The system shall classify and tag every identified flaw with a dedicated severity metric (low, medium, high, critical), exact functional statement location, and targeted CWE tracking identification index.
+
+\subsection{Rust Quality Index (RQI) Report Generation}
+\hspace{0.5cm}
+Once semantic graph processing is completed, the system shall execute its mathematical scoring engines to compile a comprehensive Rust Quality Index (RQI) report.
+The generated report shall display:
+\begin{itemize}
+    \item A unified, composite RQI health score ranging from 0 to 100 based on weighted evaluation matrices.
+    \item Individual score metrics for each of the independent evaluation vectors (Safety, Performance, Maintainability, Security).
+    \item Non-linear deduction logging displaying how severe single anomalies dynamically penalize adjacent vectors.
+    \item Technical descriptions, impact scenarios, and specific mitigation options for every identified flaw.
+\end{itemize}
+The completed quality reports shall be exportable as highly readable, self-contained dashboard files or PDF documents for static project review.
+
+\subsection{Patch Generation, Validation, and Version Management}
+\hspace{0.5cm}
+After code flaws are flagged, the system shall visually highlight the exact functional statement lines inside the workspace interface. The system shall invoke the LLM-based patch synthesis engine to output one or multiple secure, compilable refactoring candidates for the identified vulnerabilities.
+Each generated patch recommendation must include:
+\begin{itemize}
+\item An optimized, refactored function source code snippet replacing the original vulnerable block.
+\item Natural language explanations detailing the structural mechanics of the fix.
+\item Estimated performance improvements, resource savings, or index optimization impacts.
+\end{itemize}
+The system shall present all refactoring recommendations to the user in a side-by-side comparison format, ensuring that code updates remain completely user-controlled. Upon user confirmation and approval of a recommended patch, The original function code block is replaced by the secure version in the current workspace. The framework automatically switches to the patched version as the active codebase. The system regenerates the corresponding AST, CFG, and FLOG graph models to verify that the target issue has been successfully resolved.
+
+\subsection{Code Revision and Patch Control}
+\hspace{0.5cm}
+The system shall maintain a thorough intra-procedural revision database tracking every approved modification layer. Each revision entry shall store a full historical copy of the preceding code structure, the specific patch details, and an exact timestamp identifier. The system shall provide an accessible rollback/revert feature, enabling users to instantly reset the function back to any earlier version state. Upon executing a rollback, the function code is immediately restored, and its original graph abstractions and metrics are re-calculated and displayed.
+
+\subsection{Visualization of Subroutine Graph Abstractions}
+The system shall provide a built-in visualization interface displaying high-fidelity interactive models of the Control Flow Graph (CFG) and the Function-Level Ownership Graph (FLOG). During the initial assessment phase, inefficient branching execution paths, excessive allocation nodes, and vulnerable instruction sequences shall be highlighted inside the graph interface. During patch validation, the interface shall render side-by-side graph models showing the old structure vs. the new optimized abstraction layout to visually demonstrate path removal and optimization.
+
+\subsection{Error Handling}
+The system shall provide meaningful error messages for validation failures, unsupported syntax, parser errors, or timeout exceptions during API communication. The framework shall handle complex, large subroutines gracefully, logging nested parsing exceptions without breaking the workspace database or corrupting active data states.
+
+\section{Non-Functional Requirements}
+\hspace{0.5cm}
+The non-functional requirements specify quality attributes for the syst . They ensure that the systems output is accurate, consistent and that it functions effectively and remains user-friendly. The non-functional requirements specify the quality attributes for the system to ensure that it is effective, u r-friendly and produces the right output and that it emphasizes on scalable, usability and reliability that underpins implementing a robust and practical AI-powered documentation solution. 
+
+\subsection{Performance}
+\hspace{0.5cm}
+The system must execute all operational tasks—including syntax tree generation, FLOG construction, metrics extraction, LLM context evaluation, and report compilation—efficiently. Because the platform is strictly restricted to an intra-procedural execution scope, response latencies during static analysis loops should remain low enough to facilitate an interactive development loop without performance bottlenecks.
+
+\subsection{Usability}
+\hspace{0.5cm}
+The user interface should prioritize clarity, accessibility, and clean design for both learners and developers. The dashboard must present quality indicators clearly, utilizing interactive code panels, synchronized side-by-side patch diff layouts, and visual graph displays that make complex ownership mutations and refactoring steps easy to trace.
+
+\subsection{Accuracy and Reliability}
+\hspace{0.5cm}
+System reliability is maintained through rigorous, deterministic graph metrics combined with transparent patch validation loops. The framework must accurately evaluate structural and control flows, ensuring that the calculated metrics reflect the true state of the function scope. The platform preserves source stability by ensuring that no code modifications are ever executed automatically without explicit developer consent.
+
+\subsection{Security and Confidentiality}
+\hspace{0.5cm}
+All user-submitted function code blocks are analyzed in an isolated, secure execution environment. The platform ensures that no uploaded source material or intermediate graph databases are permanently stored or exposed after analysis is complete. Proper input validation and sandboxing are enforced throughout the pipeline to protect the tool from malicious execution exploits.
+
+\subsection{Maintainability and Extensibility}
+\hspace{0.5cm}
+The framework must feature a highly modular architecture that cleanly separates the parsing front-end, the metric calculation module, the LLM reasoning interface, and the reporting dashboard. This modular configuration allows developers to easily update assessment rules, swap underlying text inference models, or integrate the framework into continuous deployment workflows without requiring an architectural overhaul.
+
+\subsection{Explainability}
+All code quality evaluations and vulnerability detections must be justified with natural language explanations detailing the underlying structural root causes. Every suggested patch must include structured reasoning that clearly defines the safety or performance enhancements achieved, allowing developers to understand both the cause of the issue and the exact structural effect of the proposed solution.
+
+\subsection{User-Controlled Patch Management}
+The application must guarantee that patch validation remains entirely under user control. Developers must be provided with side-by-side textual code comparisons and structural graph differences, enabling them to evaluate, accept, or discard recommendations as needed before any modifications are committed to the file system.
+
+\section{Feasibility Study}
+\hspace{0.5cm}
+A feasibility study examines a proposed system to determine its viability, impact on operations, ability to meet user needs, and cost-effectiveness. While any project might seem achievable given unlimited time and resources, it is essential to assess feasibility early to ensure practicality and success. Systems that integrate emerging technologies, such as advanced language compilers and large language models, require such evaluation to anticipate implementation challenges, technical risks, and operational constraints.
+In the case of the proposed RustAuditAI framework, a feasibility study helps evaluate whether the intra-procedural analysis system can fulfill technical metrics, work efficiently within target workflows, and deliver practical value for software quality engineering. The study is divided into three sections:
+
+\subsection{Technical Feasibility}
+\hspace{0.5cm}
+The technical feasibility of RustAuditAI is grounded in the architectural choice to restrict code parsing to an intra-procedural scope using mature compiler utilities. By utilizing the robust syn crate, the frontend can reliably transform raw function text into structured Abstract Syntax Trees without the immense compute overhead required for full cross-workspace compilation. The integration of the NetworkX library allows for high-performance generation and traversal of the custom Function-Level Ownership Graph (FLOG), accurately tracking variables, lifetimes, and borrows.
+The language reasoning layers are handled via secure API connections to highly optimized instruction-tuned models like LLaMA-3.3-70B, which provide fast text inference speeds and low latency. The local visualization engines utilize clean HTML and CSS formatting, avoiding dependencies on heavyweight external layout frameworks. Because all underlying parsing libraries, graph models, and API interfaces are well-supported and extensively documented, the construction of the system is highly feasible within standard computing environments without specialized hardware acceleration.
+
+\subsection{Operational Feasibility}
+\hspace{0.5cm}
+Operational feasibility evaluates whether the system can function efficiently in the intended environment and satisfy user requirements. RustAuditAI is explicitly structured to introduce minimal disruption into active development loops, operating as a lightweight, interactive function-level assistant. By focusing on localized routines, it provides immediate quality metrics, RQI logs, and visual graph trees that help developers rapidly inspect code logic.
+The split dashboard—showing side-by-side code diffs, actionable explanations, and patch histories—is designed to be highly accessible to developers with varying security and systems expertise. The platform is equally effective for project managers tracking quality trends and for students learning idiomatic systems programming concepts. Therefore, the tool is highly feasible from an operational perspective across both educational and industry environments.
+
+\subsection{Economical Feasibility}
+\hspace{0.5cm}
+Economic feasibility assesses whether the benefits of the system justify the associated costs. The primary development expenditures involve minor computing resources for local graph generation and processing standard cloud API tokens for text reasoning queries. Relying on open-source compiler crates like syn and standard hardware configurations drastically lowers upfront infrastructure costs compared to building proprietary analysis engines.
+By automatically evaluating software metrics, flagging allocation vulnerabilities, and providing instant refactoring patches under developer control, the framework significantly reduces the time and cost associated with manual code optimization and security code remediation. This automated approach delivers long-term productivity gains and reduces potential runtime vulnerabilities, making RustAuditAI highly cost-effective and economically feasible for academic research and deployment pipelines.
+
+% \subsection{Error Handling}
+% Invalid inputs, unsupported files, or analysis failures shall be
+% detected and communicated to the user through appropriate error
+% messages.
+
+% \subsection{Data Security}
+% The system shall process source code locally and shall not permanently
+% store or transmit user code without authorization, ensuring data
+% privacy and security.
+
+% \section{Feasibility Study}
+% \hspace{0.5cm}A feasibility study evaluates the practicality of implementing the
+% proposed system in terms of technical, operational, and economic
+% factors. This assessment ensures that the system can be developed using
+% available resources within reasonable constraints.
+
+% \subsection{Technical Feasibility}
+% \hspace{0.5cm}The system utilizes widely supported technologies such as Python,
+% AST-based parsers, vector databases, and large language models. The
+% computational requirements are moderate and can be satisfied using
+% standard personal computing environments, making the system technically
+% feasible.
+
+% \subsection{Operational Feasibility}
+% \hspace{0.5cm}The system is designed to require minimal user interaction and technical
+% expertise. Users only need to provide a source code location to obtain
+% generated documentation, making the system operationally feasible for
+% students, developers, and academic users.
+
+% \subsection{Economical Feasibility}
+% \hspace{0.5cm}The system is developed using open-source tools and libraries. No
+% specialized hardware or licensed software is required, making the
+% proposed solution cost-effective and economically feasible.
